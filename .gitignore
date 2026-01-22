@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+cv_env/
+venv/
+
+# OS files
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Camera temp files
+*.jpg
+*.png
+
