@@ -1,28 +1,21 @@
-# capture-faces.py
-
 import cv2
 import os
 
-# ===============================
-# SETTINGS
-# ===============================
 DATASET_PATH = "dataset"
 USER_NAME = input("Enter Person Name: ")
 SAVE_PATH = os.path.join(DATASET_PATH, USER_NAME)
 
-# Create folder if not exists
 os.makedirs(SAVE_PATH, exist_ok=True)
 
-# Load Haar Cascade
+
 face_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
 )
 
-# Open Camera
 cap = cv2.VideoCapture(0)
 
 count = 0
-MAX_IMAGES = 100  # Number of images to capture
+MAX_IMAGES = 100  
 
 print("Starting face capture... Press 'q' to quit")
 
@@ -44,14 +37,11 @@ while True:
     for (x, y, w, h) in faces:
         count += 1
 
-        # Crop face
         face = frame[y:y+h, x:x+w]
 
-        # Save image
         file_name = os.path.join(SAVE_PATH, f"{count}.jpg")
         cv2.imwrite(file_name, face)
 
-        # Draw rectangle
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,0), 2)
         cv2.putText(frame, f"Image {count}",
                     (x, y-10),
@@ -60,7 +50,6 @@ while True:
 
     cv2.imshow("Face Capture", frame)
 
-    # Stop conditions
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
@@ -71,3 +60,4 @@ print("Face capture completed!")
 
 cap.release()
 cv2.destroyAllWindows()
+
